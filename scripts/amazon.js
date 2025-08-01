@@ -1,5 +1,5 @@
 import { products } from  '../data/products.js'
-import { cart } from './cart.js'
+import { cart } from '../data/cart.js'
 
 let productsHTML = '';
 
@@ -50,43 +50,52 @@ products.forEach((product) => {
   `;
 });
 
-document.querySelector('.js-products-grid').innerHTML = productsHTML;
+function addToCart(productId) {
+    const quantitySelector = document.querySelector(`.js-select-quantity[data-product-id="${productId}"]`);
+    const selectedQuantity = Number(quantitySelector.value);
 
+    let matchingItem = cart.find(item => item.id === productId);
+
+    if (matchingItem) {
+
+        matchingItem.quantity += selectedQuantity;
+    } else {
+        cart.push({
+            id: productId,
+            quantity: selectedQuantity
+        });
+    }
+}
+
+function updateCart() {
+    let cartQuantity = 0;
+    cart.forEach((item) => {
+        cartQuantity += item.quantity;
+    });
+    //To show in our landing page
+    document.querySelector('.js-cart-no')
+        .innerHTML = cartQuantity;
+}
+
+function buttonInteractive(button) {
+    //show Added when click Add-to-cart btn
+    const addMsg = button.parentElement.querySelector('.added-to-cart');
+    addMsg.classList.add('visible');
+
+    //Hide Added
+    setTimeout(() => {
+        addMsg.classList.remove('visible');
+    },2000);
+}
+
+document.querySelector('.js-products-grid').innerHTML = productsHTML;
 document.querySelectorAll('.js-cart-button').forEach((button) => {
     button.addEventListener('click', () => {
         const productId = button.dataset.productId;
 
-        const quantitySelector = document.querySelector(`.js-select-quantity[data-product-id="${productId}"]`);
-        const selectedQuantity = Number(quantitySelector.value);
-
-        let matchingItem = cart.find(item => item.id === productId);
-
-        if (matchingItem) {
-            matchingItem.quantity += selectedQuantity;
-        } else {
-            cart.push({
-                id: productId,
-                quantity: selectedQuantity
-            });
-        }
-
-        // To increase the number in the cartQuantity
-        let cartQuantity = 0;
-        cart.forEach((item) => {
-            cartQuantity += item.quantity;
-        });
-        //To show in our landing page
-        document.querySelector('.js-cart-no')
-            .innerHTML = cartQuantity;
-
-        //show Added when click Add-to-cart btn
-        const addMsg = button.parentElement.querySelector('.added-to-cart');
-        addMsg.classList.add('visible');
-
-        //Hide Added
-        setTimeout(() => {
-            addMsg.classList.remove('visible');
-        },2000);
+        addToCart(productId);
+        updateCart();
+        buttonInteractive(button);
 
         console.log(cart);
     });
