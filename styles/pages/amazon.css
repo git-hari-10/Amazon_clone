@@ -149,6 +149,20 @@
   margin-right: 5px;
 }
 
+.added-to-cart {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  height: 20px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: green;
+}
+
+.added-to-cart.visible {
+  opacity: 1;
+}
+
+
 .add-to-cart-button {
   width: 100%;
   padding: 8px;

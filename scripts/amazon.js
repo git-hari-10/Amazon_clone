@@ -1,3 +1,6 @@
+import { products } from  '../data/products.js'
+import { cart } from './cart.js'
+
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -66,6 +69,24 @@ document.querySelectorAll('.js-cart-button').forEach((button) => {
                 quantity: selectedQuantity
             });
         }
+
+        // To increase the number in the cartQuantity
+        let cartQuantity = 0;
+        cart.forEach((item) => {
+            cartQuantity += item.quantity;
+        });
+        //To show in our landing page
+        document.querySelector('.js-cart-no')
+            .innerHTML = cartQuantity;
+
+        //show Added when click Add-to-cart btn
+        const addMsg = button.parentElement.querySelector('.added-to-cart');
+        addMsg.classList.add('visible');
+
+        //Hide Added
+        setTimeout(() => {
+            addMsg.classList.remove('visible');
+        },2000);
 
         console.log(cart);
     });
