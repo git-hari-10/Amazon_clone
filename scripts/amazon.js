@@ -1,5 +1,5 @@
 import { products } from  '../data/products.js'
-import { cart } from '../data/cart.js'
+import { cart, addToCart } from '../data/cart.js'
 
 let productsHTML = '';
 
@@ -50,27 +50,10 @@ products.forEach((product) => {
   `;
 });
 
-function addToCart(productId) {
-    const quantitySelector = document.querySelector(`.js-select-quantity[data-product-id="${productId}"]`);
-    const selectedQuantity = Number(quantitySelector.value);
-
-    let matchingItem = cart.find(item => item.id === productId);
-
-    if (matchingItem) {
-
-        matchingItem.quantity += selectedQuantity;
-    } else {
-        cart.push({
-            id: productId,
-            quantity: selectedQuantity
-        });
-    }
-}
-
 function updateCart() {
     let cartQuantity = 0;
-    cart.forEach((item) => {
-        cartQuantity += item.quantity;
+    cart.forEach((cartItem) => {
+        cartQuantity += cartItem.quantity;
     });
     //To show in our landing page
     document.querySelector('.js-cart-no')
