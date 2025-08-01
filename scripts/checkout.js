@@ -38,16 +38,12 @@ cart.forEach((cartItem) => {
                   <span>
                     Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary
-                    js-update-btn" data-product-id = "${matchingProduct.id}">
-                    Update
-                    <input type="number" class="quantity-input hidden">
-                    <span class="save-quantity-link hidden">Save</span>
-                  </span>
-                  <span class="delete-quantity-link link-primary js-delete"
-                  data-product-id = "${matchingProduct.id}">
-                    Delete
-                  </span>
+                  <div class="cart-item-actions">
+                      <button class="btn btn-yellow js-update-btn" data-product-id="${matchingProduct.id}">Update</button>
+                      <input type="number" class="quantity-input hidden" />
+                      <button class="btn btn-yellow save-quantity-link hidden" data-product-id="${matchingProduct.id}">Save</button>
+                      <button class="btn btn-gray js-delete" data-product-id="${matchingProduct.id}">Delete</button>
+                  </div>
                 </div>
               </div>
 
@@ -119,25 +115,22 @@ document.querySelectorAll('.js-delete')
     });
 
 // Show input and save button when "Update" is clicked
-document.querySelectorAll('.js-update-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-        const input = btn.querySelector('.quantity-input');
-        const saveBtn = btn.querySelector('.save-quantity-link');
+document.querySelectorAll('.js-update-btn').forEach((updateBtn) => {
+    updateBtn.addEventListener('click', () => {
+        const container = updateBtn.closest('.cart-item-actions');
+        const input = container.querySelector('.quantity-input');
+        const saveBtn = container.querySelector('.save-quantity-link');
 
         input.classList.remove('hidden');
         saveBtn.classList.remove('hidden');
-
-        // focus on input
-        input.focus();
     });
 });
 
-// Save new quantity and update cart
 document.querySelectorAll('.save-quantity-link').forEach((saveBtn) => {
     saveBtn.addEventListener('click', () => {
-        const btnWrapper = saveBtn.closest('.js-update-btn');
-        const input = btnWrapper.querySelector('.quantity-input');
-        const productId = btnWrapper.dataset.productId;
+        const container = saveBtn.closest('.cart-item-actions');
+        const input = container.querySelector('.quantity-input');
+        const productId = saveBtn.dataset.productId;
         const newQuantity = parseInt(input.value);
 
         if (isNaN(newQuantity) || newQuantity < 1) {
@@ -152,22 +145,12 @@ document.querySelectorAll('.save-quantity-link').forEach((saveBtn) => {
         }
 
         const quantityLabel = document.querySelector(`.js-cart-item-container-${productId} .quantity-label`);
-        if (quantityLabel) {
-            quantityLabel.textContent = String(newQuantity);
-        }
+        quantityLabel.textContent = String(newQuantity);
 
-        input.classList.add('fade-out');
-        saveBtn.classList.add('fade-out');
+        input.classList.add('hidden');
+        saveBtn.classList.add('hidden');
+        input.value = '';
 
-        // hide input and save
-        setTimeout(() => {
-            input.classList.add('hidden');
-            saveBtn.classList.add('hidden');
-            input.classList.remove('fade-out');
-            saveBtn.classList.remove('fade-out');
-            input.value = '';
-        }, 1000);
-
-        document.querySelector('.js-checkout-items a').textContent = `${getCartQuantity()} items`;
+        document.querySelector('.js-checkout-items').textContent = `${getCartQuantity()} items`;
     });
 });
