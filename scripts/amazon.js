@@ -84,3 +84,5 @@ document.querySelectorAll('.js-cart-button').forEach((button) => {
         console.log(cart);
     });
 });
+
+updateCart();
