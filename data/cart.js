@@ -1,6 +1,6 @@
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function saveCart() {
+export function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
@@ -30,4 +30,12 @@ export function removeFromCart(productId) {
         cart.splice(index, 1);
         saveCart();
     }
+}
+
+export function getCartQuantity() {
+    let quantity = 0;
+    cart.forEach((item) => {
+        quantity += item.quantity;
+    });
+    return quantity;
 }

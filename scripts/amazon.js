@@ -51,7 +51,7 @@ products.forEach((product) => {
   `;
 });
 
-function updateCart() {
+export function updateCart() {
     let cartQuantity = 0;
     cart.forEach((cartItem) => {
         cartQuantity += cartItem.quantity;

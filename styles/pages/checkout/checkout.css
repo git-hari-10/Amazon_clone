@@ -32,6 +32,26 @@
   align-items: start;
 }
 
+.link-primary {
+  display: flex;
+}
+
+.quantity-input {
+  display: flex;
+  margin-left: 5px;
+  width: 30px;
+  margin-right: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
 @media (max-width: 1000px) {
   .main {
     max-width: 500px;
