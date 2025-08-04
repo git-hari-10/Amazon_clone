@@ -1,5 +1,5 @@
 import { products } from  '../data/products.js'
-import { cart, addToCart } from '../data/cart.js'
+import { cart, addToCart, getCartQuantity } from '../data/cart.js'
 import { formatCurrency } from "./utils/Currency.js";
 
 let productsHTML = '';
@@ -85,4 +85,12 @@ document.querySelectorAll('.js-cart-button').forEach((button) => {
     });
 });
 
-updateCart();
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        // force full reload of cart state
+        location.reload();
+    } else {
+        // Regular load
+        updateCart();
+    }
+});

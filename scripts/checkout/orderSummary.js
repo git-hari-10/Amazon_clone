@@ -142,7 +142,6 @@ export function renderOrderSummary() {
             input.value = '';
 
             document.querySelector('.js-checkout-items a').textContent = `${getCartQuantity()} items`;
-            renderPaymentSummary();
         });
     });
 
