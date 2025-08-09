@@ -3,7 +3,12 @@ import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProductsFetch } from "../data/products.js";
 
 async function initCheckout() {
-    await loadProductsFetch();
+    try {
+        await loadProductsFetch();
+    }
+    catch (error) {
+        console.log('Please try again later.');
+    }
     renderOrderSummary();
     renderPaymentSummary();
 }
