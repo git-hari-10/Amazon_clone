@@ -75,7 +75,6 @@ export function loadProductsFetch() {
   return promise;
 }
 
-
 export function loadProducts(callback) {
   const xhr = new XMLHttpRequest();
 
