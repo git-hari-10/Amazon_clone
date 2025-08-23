@@ -1,4 +1,4 @@
-import { formatCurrency } from "../scripts/utils/Currency.js";
+import { formatCurrency } from "../scripts/utils/currency.js";
 
 export function getProduct(productId) {
   let matchingProduct;
@@ -86,7 +86,7 @@ export function loadProducts(callback) {
       }
       return new Product(productDetails);
     });
-    console.log('load products');
+    console.log('loaded products');
     callback();
   });
 
