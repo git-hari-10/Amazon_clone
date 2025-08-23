@@ -189,7 +189,7 @@
        an element is placed in is determined by the order
        of the elements in the HTML. grid-column overrides
        this default ordering).
-       
+
        / span 2 means this element will take up 2 columns
        in the grid (Normally, each element takes up 1
        column in the grid). */
@@ -272,3 +272,82 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+/*  ------------------------------------------------------  */
+
+.success-overlay {
+  position: fixed;
+  inset: 0;
+  backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.success-overlay.fade-out {
+  animation: fadeOut 0.6s ease-in forwards;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+.checkmark {
+  width: 110px;
+  height: 110px;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 12px rgba(76, 175, 80, 0.6));
+  animation: popBounce 0.6s cubic-bezier(0.68,-0.55,0.27,1.55) forwards;
+}
+
+.checkmark__circle {
+  fill: #4CAF50;
+  stroke: none;
+}
+
+.checkmark__check {
+  stroke: #fff;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: strokeCheck 0.6s ease-out 0.4s forwards;
+}
+
+@keyframes strokeCheck { to { stroke-dashoffset: 0; } }
+@keyframes popBounce {
+  0% { transform: scale(0.2); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.success-text {
+  margin-top: 25px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.5px;
+  animation: fadeInUp 0.7s ease-out forwards;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
