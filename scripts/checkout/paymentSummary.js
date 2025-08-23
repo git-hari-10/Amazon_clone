@@ -66,7 +66,6 @@ export function renderPaymentSummary() {
           </button>
         `;
 
-    // ✅ Button click
     document.querySelector('.js-place-order').addEventListener("click", async () => {
         try {
             const response = await fetch('https://supersimplebackend.dev/orders', {
@@ -81,7 +80,6 @@ export function renderPaymentSummary() {
             // Clear cart
             localStorage.removeItem("cart");
 
-            // ✅ Show animation before redirect
             showSuccessAnimation(() => {
                 window.location.href = `tracking.html?orderId=${order.id}`;
             });
@@ -107,7 +105,6 @@ export function renderPaymentSummary() {
 
         document.body.appendChild(overlay);
 
-        // Start confetti
         startConfetti();
 
         // After 3 s -> fade out -> redirect
